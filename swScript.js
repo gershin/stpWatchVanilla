@@ -1,4 +1,4 @@
-const display = document.querySelector(".timerDisplay");
+const timeDisplay = document.querySelector(".timerDisplay");
 const splits = document.querySelectorAll(".split-time");
 const startBtn = document.querySelector(".start");
 const stopBtn = document.querySelector(".stop");
@@ -7,19 +7,19 @@ const resetBtn = document.querySelector(".reset");
 
 let startTime,
   elapsedTime = 0,
-  intervalId,
+  intervalTime,
   splitCount = 0;
 
 function startTimer() {
   startTime = Date.now() - elapsedTime;
-  intervalId = setInterval(() => {
+  intervalTime = setInterval(() => {
     elapsedTime = Date.now() - startTime;
     updateTimer(elapsedTime);
   }, 10);
 }
 
 function stopTimer() {
-  clearInterval(intervalId);
+  clearInterval(intervalTime);
 }
 
 function splitTime() {
@@ -27,11 +27,11 @@ function splitTime() {
   if (splitCount > splits.length) {
     return;
   }
-  splits[splitCount - 1].textContent = display.textContent;
+  splits[splitCount - 1].textContent = timeDisplay.textContent;
 }
 
 function resetTimer() {
-  clearInterval(intervalId);
+  clearInterval(intervalTime);
   elapsedTime = 0;
   updateTimer(elapsedTime);
   for (let i = 0; i < splits.length; i++) {
@@ -47,7 +47,7 @@ function updateTimer(time) {
     (time - minutes * 60000 - seconds * 1000) / 10
   );
   const displayValue = `${pad(minutes)}:${pad(seconds)}:${pad(milliseconds)}`;
-  display.textContent = displayValue;
+  timeDisplay.textContent = displayValue;
 }
 
 function pad(number) {
